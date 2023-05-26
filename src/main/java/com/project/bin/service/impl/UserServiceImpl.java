@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(userEntity);
 
-        userEntity.hashPassword(passwordEncoder); // 비밀번호 암호화
-        userEntity.encrypt(aes256); // 개인정보 암호화
+        userEntity.hashPassword(passwordEncoder);
+        userEntity.encrypt(aes256);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
             throw new ApiException(ExceptionType.DATA_NOT_FOUND);
         }
 
-        user.decrypt(aes256); // 개인정보 복호화
+        user.decrypt(aes256);
 
         return user;
     }
