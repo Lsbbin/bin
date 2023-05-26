@@ -48,10 +48,6 @@ public class UserEntity extends BaseTimeEntity {
         return this;
     }
 
-    public boolean checkPassword (String plainPassword, PasswordEncoder passwordEncoder) {
-        return passwordEncoder.matches(plainPassword, this.userPwd);
-    }
-
     public UserEntity encrypt (AES256 aes256) throws Exception {
         this.userId = aes256.encrypt(this.userId);
         this.userEmail = aes256.encrypt(this.userEmail);

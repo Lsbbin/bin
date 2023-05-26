@@ -1,10 +1,12 @@
 package com.project.bin.repository.custom;
 
 
-import com.project.bin.dto.entity.UserEntity;
+import com.project.bin.dto.UserDto;
 
 
 public interface UserRepositoryCustom {
 
-    UserEntity findByUserId(String id);
+    UserDto findByUserId(String id);
+
+    String findPasswordById(String id);
 }

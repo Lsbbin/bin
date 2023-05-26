@@ -2,6 +2,7 @@ package com.project.bin.controller;
 
 import com.project.bin.cmmn.exception.ApiException;
 import com.project.bin.cmmn.util.CommonUtil;
+import com.project.bin.dto.UserDto;
 import com.project.bin.dto.entity.UserEntity;
 import com.project.bin.service.UserService;
 import com.project.bin.dto.common.ResponseVo;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 
 @Api(tags = "User Controller")
@@ -83,14 +83,14 @@ public class UserController {
 
         ResponseVo responseVo;
 
-        Map responseMap = userService.loginProc(userId, userPwd);
+        UserDto responseData = userService.loginProc(userId, userPwd);
 
-        if (responseMap != null) {
+        if (responseData != null) {
             responseVo = ResponseVoBuilder.aResponseVo()
                     .code(ExceptionType.SUCCESS.getErrorCode())
                     .status(ExceptionType.SUCCESS.getHttpStatus())
                     .message(ExceptionType.SUCCESS.getErrorMessage())
-                    .body(responseMap)
+                    .body(responseData)
                     .build();
         } else {
             responseVo = ResponseVoBuilder.aResponseVo()

@@ -1,8 +1,9 @@
 package com.project.bin.repository.impl;
 
+import com.project.bin.dto.UserDto;
 import com.project.bin.dto.entity.QUserEntity;
-import com.project.bin.dto.entity.UserEntity;
 import com.project.bin.repository.custom.UserRepositoryCustom;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
@@ -14,10 +15,30 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     private final QUserEntity qUserEntity = QUserEntity.userEntity;
 
     @Override
-    public UserEntity findByUserId (String userId) {
-        return queryFactory.selectFrom(qUserEntity)
-                .where(qUserEntity.userId.eq(userId))
+    public UserDto findByUserId (String id) {
+        UserDto result = queryFactory
+                        .select(Projections.bean(UserDto.class,
+                                    qUserEntity.userSn
+                                    , qUserEntity.userId
+                                    , qUserEntity.userName
+                                    , qUserEntity.userEmail
+                                    , qUserEntity.registDate))
+                        .from(qUserEntity)
+                        .where(qUserEntity.userId.eq(id))
+                        .fetchOne();
+
+        return result;
+    }
+
+    @Override
+    public String findPasswordById (String id) {
+        String result = queryFactory
+                .select(qUserEntity.userPwd)
+                .from(qUserEntity)
+                .where(qUserEntity.userId.eq(id))
                 .fetchOne();
+
+        return result;
     }
 
 
