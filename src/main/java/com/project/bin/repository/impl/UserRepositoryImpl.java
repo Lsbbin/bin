@@ -17,15 +17,15 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     public UserDto findByUserId (String id) {
         UserDto result = queryFactory
-                        .select(Projections.bean(UserDto.class,
-                                    qUserEntity.userSn
-                                    , qUserEntity.userId
-                                    , qUserEntity.userName
-                                    , qUserEntity.userEmail
-                                    , qUserEntity.registDate))
-                        .from(qUserEntity)
-                        .where(qUserEntity.userId.eq(id))
-                        .fetchOne();
+                .select(Projections.bean(UserDto.class,
+                            qUserEntity.userSn
+                            , qUserEntity.userId
+                            , qUserEntity.userName
+                            , qUserEntity.userEmail
+                            , qUserEntity.registDate))
+                .from(qUserEntity)
+                .where(qUserEntity.userId.eq(id))
+                .fetchOne();
 
         return result;
     }
