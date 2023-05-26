@@ -5,7 +5,7 @@ import com.project.bin.dto.UserDto;
 import com.project.bin.dto.common.ResponseVo;
 import com.project.bin.dto.common.ResponseVoBuilder;
 import com.project.bin.dto.enums.ExceptionType;
-import com.project.bin.service.UserService;
+import com.project.bin.service.LoginService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -24,7 +24,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final UserService userService;
+    private final LoginService loginService;
 
     @PostMapping("/login")
     @ApiImplicitParams({
@@ -42,7 +42,7 @@ public class LoginController {
 
         ResponseVo responseVo;
 
-        UserDto responseData = userService.loginProc(userId, userPwd);
+        UserDto responseData = loginService.verify(userId, userPwd);
 
         if (responseData != null) {
             responseVo = ResponseVoBuilder.aResponseVo()

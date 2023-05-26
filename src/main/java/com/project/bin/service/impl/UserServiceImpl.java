@@ -6,6 +6,7 @@ import com.project.bin.dto.UserDto;
 import com.project.bin.dto.entity.UserEntity;
 import com.project.bin.dto.enums.ExceptionType;
 import com.project.bin.repository.UserRepository;
+import com.project.bin.service.LoginService;
 import com.project.bin.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, LoginService {
 
     private final UserRepository userRepository;
 
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto loginProc(String userId, String userPwd) throws Exception {
+    public UserDto verify(String userId, String userPwd) throws Exception {
         AES256 aes256 = new AES256();
         String encId = aes256.encrypt(userId);
 
