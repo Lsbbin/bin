@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -46,6 +48,14 @@ public class UserServiceImpl implements UserService {
         user.decrypt(aes256);
 
         return user;
+    }
+
+    @Override
+    public List<UserDto> getUserList() throws Exception {
+
+        List<UserDto> userList = userRepository.getUserList();
+
+        return userList;
     }
 
 

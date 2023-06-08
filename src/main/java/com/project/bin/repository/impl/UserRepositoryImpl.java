@@ -7,6 +7,8 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepositoryCustom {
 
@@ -37,6 +39,21 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .from(qUserEntity)
                 .where(qUserEntity.userId.eq(id))
                 .fetchOne();
+
+        return result;
+    }
+
+    @Override
+    public List<UserDto> getUserList () {
+        List<UserDto> result = queryFactory
+                                .select(Projections.bean(UserDto.class,
+                                        qUserEntity.userSn
+                                        , qUserEntity.userId
+                                        , qUserEntity.userName
+                                        , qUserEntity.userEmail
+                                        , qUserEntity.registDate))
+                                .from(qUserEntity)
+                                .fetch();
 
         return result;
     }
